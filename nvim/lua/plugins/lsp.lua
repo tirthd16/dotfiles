@@ -24,6 +24,18 @@ return {
         capabilities.textDocument.completion.completionItem.snippetSupport = true
         require("fidget").setup({})
         require("mason").setup()
+        require('lspconfig').emmet_ls.setup({
+            capabilities = capabilities,
+            filetypes = { "css", "eruby", "html", "javascriptreact", "less", "sass", "scss", "svelte", "pug", "typescriptreact", "vue" },
+            init_options = {
+                html = {
+                    options = {
+                        -- For possible options, see: https://github.com/emmetio/emmet/blob/master/src/config.ts#L79-L267
+                        ["bem.enabled"] = true,
+                    },
+                },
+            }
+        })
         require("mason-lspconfig").setup({
             ensure_installed = {
                 "lua_ls",

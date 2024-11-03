@@ -1,23 +1,35 @@
 return {
+ { "nvchad/volt", lazy = true },
+{
+  "nvchad/minty",
+  cmd = { "Shades", "Huefy" },
+},
+    { "lewis6991/gitsigns.nvim" },
+    {
+        dir = '~/.config/nvim/lua/projects/statusline.lua',
+        event = 'UIEnter',
+        config = function()
+            require('projects.statusline').setup {
+                single_cursorline = true,
+                flavour = 'grayscale',
+            }
+        end
+
+    },
     {
         "luukvbaal/statuscol.nvim",
         config = function()
             local builtin = require("statuscol.builtin")
             require("statuscol").setup({
-                -- configuration goes here, for example:
-                relculright = true,
                 segments = {
-                    { text = { builtin.foldfunc }, click = "v:lua.ScFa" },
                     {
-                        sign = { namespace = { "diagnostic/signs" }, maxwidth = 2, auto = true },
-                        click = "v:lua.ScSa"
+                        text = { builtin.lnumfunc, " " },
+                        condition = { true, builtin.not_empty },
+                        click = "v:lua.ScLa",
                     },
-                    { text = { builtin.lnumfunc }, click = "v:lua.ScLa", },
-                    {
-                        sign = { name = { ".*" }, maxwidth = 2, colwidth = 1, auto = true, wrap = true },
-                        click = "v:lua.ScSa"
-                    },
-                }
+                    { text = { "%s" }, click = "v:lua.ScSa" },
+                },
+                relculright = true,
             })
         end,
     },
@@ -30,9 +42,7 @@ return {
             scope = {
                 enabled = true,
                 show_start = true,
-                show_end = false,
-                -- You can customize the highlight color
-                -- highlight = "CursorColumn",
+                show_end = true,
                 priority = 500
             }
         }
@@ -45,38 +55,25 @@ return {
             vim.cmd.colorscheme('no-clown-fiesta')
         end
     },
-    {
-        'sainnhe/gruvbox-material',
-        lazy = false,
-        priority = 1000,
-        config = function()
-            -- Optionally configure and load the colorscheme
-            -- directly inside the plugin declaration.
-            vim.g.gruvbox_material_enable_italic = true
-            vim.g.gruvbox_material_sign_column_background = 'grey'
-            vim.g.gruvbox_material_better_performance = 1
-            --vim.cmd.colorscheme('gruvbox-material')
-        end
-    },
     { 'kmonad/kmonad-vim' },
-    {
-        'nvim-lualine/lualine.nvim',
-        dependencies = { 'nvim-tree/nvim-web-devicons' }
-    },
     { 'tpope/vim-fugitive' },
     { 'ActivityWatch/aw-watcher-vim' },
     'nvim-telescope/telescope.nvim',
     tag = '0.1.6',
     dependencies = { 'nvim-lua/plenary.nvim' },
-    { 'projekt0n/github-nvim-theme' },
     { 'sindrets/diffview.nvim' },
     { 'tpope/vim-fugitive' },
     { 'junegunn/gv.vim' },
     { 'mbbill/undotree' },
-    { 'akinsho/git-conflict.nvim',  version = "*",         config = true },
+    { 'akinsho/git-conflict.nvim',  version = "*",        config = true },
     { 'nvim-tree/nvim-web-devicons' },
     { 'feline-nvim/feline.nvim',    branch = '0.5-compat' },
-    { 'chrisbra/Colorizer',         cmd = "ColorHighlight" },
+    {
+        'chrisbra/Colorizer',
+        config = function()
+            vim.cmd('ColorHighlight')
+        end
+    },
     {
         "ThePrimeagen/harpoon",
         branch = "harpoon2",

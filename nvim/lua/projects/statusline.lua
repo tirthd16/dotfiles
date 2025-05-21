@@ -34,9 +34,9 @@ end
 
 M.file_name = function()
 
-  local filename = vim.fn.expand('%:t')
+local filename = vim.fn.fnamemodify(vim.fn.expand('%'), ':.')
   if filename == '' then
-    filename = '[no name]'
+    filename = vim.fn.getcwd()
   end
 
   if string.match(filename, 'NvimTree') then

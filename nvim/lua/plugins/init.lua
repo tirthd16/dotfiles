@@ -1,60 +1,29 @@
 return {
- { "nvchad/volt", lazy = true },
-{
-  "nvchad/minty",
-  cmd = { "Shades", "Huefy" },
-},
+    { 'echasnovski/mini.indentscope', version = '*' },
+    { "nvchad/volt",                  lazy = true },
+    {
+        "nvchad/minty",
+        cmd = { "Shades", "Huefy" },
+    },
     { "lewis6991/gitsigns.nvim" },
-    {
-        dir = '~/.config/nvim/lua/projects/statusline.lua',
-        event = 'UIEnter',
-        config = function()
-            require('projects.statusline').setup {
-                single_cursorline = true,
-                flavour = 'grayscale',
-            }
-        end
+{
+    "aktersnurra/no-clown-fiesta.nvim",
+    lazy = false,
+    priority = 1000,
+    config = function()
+        require("no-clown-fiesta").setup({
+            -- Your existing style configurations (if any)
+        })
+        vim.cmd.colorscheme('no-clown-fiesta')
 
-    },
-    {
-        "luukvbaal/statuscol.nvim",
-        config = function()
-            local builtin = require("statuscol.builtin")
-            require("statuscol").setup({
-                segments = {
-                    {
-                        text = { builtin.lnumfunc, " " },
-                        condition = { true, builtin.not_empty },
-                        click = "v:lua.ScLa",
-                    },
-                    { text = { "%s" }, click = "v:lua.ScSa" },
-                },
-                relculright = true,
-            })
-        end,
-    },
-    {
-        "lukas-reineke/indent-blankline.nvim",
-        main = "ibl",
-        ---@module "ibl"
-        ---@type ibl.config
-        opts = {
-            scope = {
-                enabled = true,
-                show_start = true,
-                show_end = true,
-                priority = 500
-            }
-        }
-    },
-    {
-        "aktersnurra/no-clown-fiesta.nvim",
-        lazy = false,
-        priority = 1000,
-        config = function()
-            vim.cmd.colorscheme('no-clown-fiesta')
-        end
-    },
+        -- Override the DiffText highlight group
+        vim.api.nvim_set_hl(0, 'DiffText', {
+            fg = "#ffffff",  -- Your desired foreground color
+            bg = "#768bb5",  -- Your desired background color
+            -- Add other style options like 'bold', 'italic' if needed
+        })
+    end
+},
     { 'kmonad/kmonad-vim' },
     { 'tpope/vim-fugitive' },
     { 'ActivityWatch/aw-watcher-vim' },
@@ -86,5 +55,6 @@ return {
     { 'hrsh7th/cmp-nvim-lsp' },
     { 'hrsh7th/nvim-cmp' },
     { 'L3MON4D3/LuaSnip' },
-    { "nvim-treesitter/nvim-treesitter",  build = ":TSUpdate" }
+    { "nvim-treesitter/nvim-treesitter",  build = ":TSUpdate" },
+    {'sindrets/diffview.nvim'},
 }

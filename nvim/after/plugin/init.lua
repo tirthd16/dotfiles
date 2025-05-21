@@ -1,4 +1,5 @@
 local harpoon = require("harpoon")
+--require('mini.indentscope').setup()
 require('gitsigns').setup()
 harpoon:setup({
   settings = {
